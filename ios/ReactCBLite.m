@@ -32,6 +32,7 @@ RCT_EXPORT_METHOD(initWithAuth:(NSString*)username password:(NSString*)password 
     @try {
         NSLog(@"Launching Couchbase Lite...");
         CBLManager* dbmgr = [CBLManager sharedInstance];
+        manager.storageType= @"ForestDB";
         CBLRegisterJSViewCompiler();
 
         //register the server with CBL_URLProtocol
@@ -199,6 +200,7 @@ RCT_EXPORT_METHOD(upload:(NSString *)method
 RCT_EXPORT_METHOD(installPrebuiltDatabase:(NSString *) databaseName)
 {
     CBLManager* manager = [CBLManager sharedInstance];
+    manager.storageType= @"ForestDB";
     CBLDatabase* db = [manager existingDatabaseNamed:databaseName error:nil];
     if (db == nil) {
         NSString* dbPath = [[NSBundle mainBundle] pathForResource:databaseName ofType:@"cblite2"];
